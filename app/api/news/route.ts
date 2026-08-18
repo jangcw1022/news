@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripHtmlTags } from "@/lib/format";
 import type { NewsItem, SortOption } from "@/lib/types";
 
-const NAVER_NEWS_ENDPOINT = "https://openapi.naver.com/v1/search/news.json";
+const NAVER_NEWS_ENDPOINT = "https://naverapihub.apigw.ntruss.com/search/v1/news";
 
 function isSortOption(value: string | null): value is SortOption {
   return value === "sim" || value === "date";
@@ -51,8 +51,8 @@ export async function GET(request: NextRequest) {
   try {
     upstreamResponse = await fetch(upstreamUrl, {
       headers: {
-        "X-Naver-Client-Id": clientId,
-        "X-Naver-Client-Secret": clientSecret,
+        "X-NCP-APIGW-API-KEY-ID": clientId,
+        "X-NCP-APIGW-API-KEY": clientSecret,
       },
       cache: "no-store",
     });
